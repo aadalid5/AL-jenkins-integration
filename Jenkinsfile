@@ -15,7 +15,7 @@ pipeline {
                     sh "git fetch --tags"
                     echo "FOO is '${FOO}'" 
                 }
-                sshagent(["aadalid5"]) {
+                sshagent(credentials:["github-ssh"]) {
                     script{ 
                         // echo "FOO is '${FOO}'" 
                         // sh "git push --tags"
