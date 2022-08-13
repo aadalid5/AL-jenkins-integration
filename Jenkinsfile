@@ -12,13 +12,14 @@ pipeline {
             steps {
                 sshagent(credentials:["github-ssh"]) {
                     script{ 
-                        // echo "FOO is '${FOO}'" 
-                        // sh "git push --tags"
+                        echo "FOO is '${FOO}'" 
+
                         // sh "npx release-it@14.14.3 --no-npm --no-git --no-increment --github.release --ci"
 
                         //FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
-                        sh "git push --tags"
-                        sh "npx release-it@14.14. --no-npm --no-git --no-increment --github.release --ci"
+                        
+                        // sh "git push --tags"
+                        // sh "npx release-it@14.14. --no-npm --no-git --no-increment --github.release --ci"
                         
                     }
                 }
@@ -30,12 +31,12 @@ pipeline {
             }
         }
 
-        stage('post-release') {
-            steps {
+        // stage('post-release') {
+        //     steps {
                 
-            echo "FOO is '${FOO}'" 
-            }
-        }
+        //     echo "FOO is '${FOO}'" 
+        //     }
+        // }
         
     }
 }
