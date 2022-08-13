@@ -36,33 +36,6 @@ pipeline {
             echo "FOO is '${FOO}'" 
             }
         }
-
-        
-        // stage('Build') {
-        //     steps {
-        //         sh "node -v"
-        //         sh "echo 'hello pipeline' "
-        //         sh "whoami"
-        //         sh "pwd"
-        //         sh "cat /etc/*release"
-        //         sh "echo 'HOLAAAAAAAAA'"
-        //         echo "The build number is ${env.BUILD_NUMBER}" 
-        //         //sh "git tag v3"
-        //         // sh "git tag"
-        //         // sh "git push --tags"
-        //     }
-        // }
-
-        // stage("post-release") {
-        //     steps {
-        //         sshagent(["jenkins-git"]) {
-        //             script {
-        //                 sh "git fetch"                        
-        //                 sh "npx release-it@14.14.3 --no-npm --no-git --no-increment --github.release --ci"
-        //             }
-        //         }
-        //     }
-        // }
         
     }
 }
