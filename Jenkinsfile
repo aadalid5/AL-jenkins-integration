@@ -10,11 +10,6 @@ pipeline {
     stages {
         stage('deploy') {
             steps {
-                
-                script {
-                    sh "git fetch --tags"
-                    echo "FOO is '${FOO}'" 
-                }
                 sshagent(credentials:["github-ssh"]) {
                     script{ 
                         // echo "FOO is '${FOO}'" 
