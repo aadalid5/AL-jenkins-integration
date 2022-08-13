@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('deploy') {
             steps {
-                sshagent(credentials:["github-key-a-id"]) {
+                sshagent(["github-key-a-id"]) {
                     script{ 
                         echo "FOO is '${FOO}'" 
 
@@ -18,7 +18,7 @@ pipeline {
 
                         //FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
                         
-                        sh "git push --tags"
+                        sh 'git ls-remote -h --refs git@github.com:aadalid5/jenkins-integration.git main | awk "{print $1}"'
                         // sh "npx release-it@14.14. --no-npm --no-git --no-increment --github.release --ci"
                         
                     }
