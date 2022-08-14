@@ -14,13 +14,13 @@ pipeline {
                 // 1 deploy, with current tag (or current tag + 1 ?)
                 sshagent(["github-key-a-id"]) {
                     script{                         
-                        sh 'git fetch --all --tags'
+                        sh 'git fetch'
                         
                         currentVersion = sh(script: 'git describe --tags', returnStdout: true)
                         echo "1 current version is '${currentVersion}'" 
 
                         echo "DEPLOY"
-                        // error("deploy failed")
+                        // error("deploy failed") //
                     }
                 }
 
@@ -30,6 +30,7 @@ pipeline {
                     FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
                 }
                 
+                // 3 push tags to remote
                 sshagent(["github-key-a-id"]){
                     script {
                         sh 'git remote set-url origin  git@github.com:aadalid5/jenkins-integration.git'
