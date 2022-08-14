@@ -16,7 +16,7 @@ pipeline {
                     script{                         
                         sh 'git fetch'
                         
-                        currentVersion = sh(script: "git describe --tags")
+                        currentVersion = sh'git describe --tags'
                         echo "1 current version is '${currentVersion}'" 
 
                         echo "DEPLOY"
