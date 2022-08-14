@@ -24,9 +24,10 @@ pipeline {
                 }
 
                 // 2 if deploy succeed, increment tag
-                
-                echo "DEPLOY WORKS"
-                FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
+                script{
+                    echo "DEPLOY WORKS"
+                    FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
+                }
                 
                 sshagent(["github-key-a-id"]){
                     script {
