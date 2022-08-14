@@ -20,7 +20,7 @@ pipeline {
                         echo "1 current version is '${currentVersion}'" 
 
                         echo "DEPLOY"
-                        error("deploy failed")
+                        // error("deploy failed")
                     }
                 }
 
