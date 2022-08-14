@@ -11,7 +11,7 @@ pipeline {
         stage('deploy') {
             steps {
 
-                // 1 deploy, with current tag (or current tag + 1)
+                // 1 deploy, with current tag (or current tag + 1 ?)
                 sshagent(["github-key-a-id"]) {
                     script{                         
                         sh 'git fetch --all --tags'
@@ -20,7 +20,10 @@ pipeline {
                         echo "1 current version is '${currentVersion}'" 
 
                         echo "DEPLOY"
+                        
                     }
+
+                    FOO=&5
                 }
 
                 // 2 if deploy succeed, increment tag
