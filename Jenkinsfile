@@ -22,8 +22,6 @@ pipeline {
                         echo "DEPLOY"
                         error("deploy failed")
                     }
-
-                    FOO=&5
                 }
 
                 // 2 if deploy succeed, increment tag
