@@ -4,39 +4,46 @@ pipeline {
     tools { nodejs "node" }
     
     environment {
-        FOO = "initial FOO value"
+        newVersion = "initial FOO value"
     }
 
     stages {
         stage('deploy') {
             steps {
 
+                // 1 deploy, with current tag (or current tag + 1)
                 sshagent(["github-key-a-id"]) {
-                    script{ 
-                        echo "FOO is '${FOO}'" 
+                    script{                         
+                        sh 'git fetch'
+                        
+                        currentVersion = sh(script: "git describe --tags")
+                        echo "1 current version is '${currentVersion}'" 
 
-                        //FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
-                        
-                        sh 'git remote set-url origin  git@github.com:aadalid5/jenkins-integration.git'
-                        sh 'git push --tags'
-                        // sh "npx release-it@14.14. --no-npm --no-git --no-increment --github.release --ci"
-                        
+                        echo "DEPLOY"
                     }
                 }
+
+                // 2 if deploy succeed, increment tag
                 
                 echo "DEPLOY WORKS"
+                newVersion = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
                 
-            
+                sshagent(["github-key-a-id"]){
+                    script {
+                        sh 'git remote set-url origin  git@github.com:aadalid5/jenkins-integration.git'
+                        sh 'git push --tags'
+                    }
+                }
 
             }
         }
 
-        // stage('post-release') {
-        //     steps {
-                
-        //     echo "FOO is '${FOO}'" 
-        //     }
-        // }
+        stage('post-release') {
+            steps {
+            // 3 get new value of tag and push to remote  
+            echo "2 newVersion is '${newVersion}'" 
+            }
+        }
         
     }
 }
