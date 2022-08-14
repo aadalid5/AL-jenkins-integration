@@ -32,7 +32,7 @@ pipeline {
                 sshagent(["github-key-a-id"]){
                     script {
                         sh 'git remote set-url origin  git@github.com:aadalid5/jenkins-integration.git'
-                        sh 'git push --tags'
+                        sh 'git push && push --tags'
                     }
                 }
 
