@@ -4,7 +4,7 @@ pipeline {
     tools { nodejs "node" }
     
     environment {
-        newVersion = "initial FOO value"
+        FOO = "initial FOO value"
     }
 
     stages {
@@ -26,7 +26,7 @@ pipeline {
                 // 2 if deploy succeed, increment tag
                 
                 echo "DEPLOY WORKS"
-                newVersion = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
+                FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
                 
                 sshagent(["github-key-a-id"]){
                     script {
@@ -41,7 +41,7 @@ pipeline {
         stage('post-release') {
             steps {
             // 3 get new value of tag and push to remote  
-            echo "2 newVersion is '${newVersion}'" 
+            echo "2 FOO is '${FOO}'" 
             }
         }
         
