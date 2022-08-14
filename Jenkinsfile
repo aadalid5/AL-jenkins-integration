@@ -1,7 +1,7 @@
 pipeline {
     agent any
     
-    tools { nodejs "Node" }
+    //tools { nodejs "Node" }
     
     environment {
         FOO = "initial FOO value"
