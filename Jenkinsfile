@@ -14,9 +14,9 @@ pipeline {
                 // 1 deploy, with current tag (or current tag + 1)
                 sshagent(["github-key-a-id"]) {
                     script{                         
-                        sh 'git fetch'
+                        sh 'git fetch --all --tags'
                         
-                        currentVersion = sh'git describe --tags'
+                        currentVersion = sh(script: 'git describe --tags', returnStdout: true)
                         echo "1 current version is '${currentVersion}'" 
 
                         echo "DEPLOY"
