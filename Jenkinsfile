@@ -13,10 +13,10 @@ pipeline {
                 // 2 if deploy succeed, increment tag
                 script{
                     echo "DEPLOY WORKS"
-                    //echo getNextVersion()
+                    //echo calculateNextVersion()
                 }
 
-                echo getNextVersion()
+                echo calculateNextVersion()
 
 
             }
@@ -25,7 +25,7 @@ pipeline {
     }
 }
 
-def getNextVersion(){
+def calculateNextVersion(){
     env_releaseType = 'minor' // 'minor' 'major'
     currentVersion = sh(script: "npx project-version", returnStdout: true)
 
@@ -48,7 +48,7 @@ def getNextVersion(){
             break
     }
 
-    newVersion = versionSplitted.join('.')
+    newVersion = 'v' + versionSplitted.join('.')
 
     return newVersion
 
