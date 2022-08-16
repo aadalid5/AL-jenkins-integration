@@ -26,26 +26,30 @@ pipeline {
 }
 
 def getNextVersion(){
-    env_releaseType = 'patch' // 'minor' 'major'
-    currentVersion = '1.0.11'
-    newVersion = ""
+    env_releaseType = 'minor' // 'minor' 'major'
+    currentVersion = sh(script: "npx project-version", returnStdout: true)
 
-    def splitted = currentVersion.tokenize('.')
+    def versionSplitted = currentVersion.tokenize('.')
+
     switch(env_releaseType) {
         case 'patch':
-            int patch = splitted[2] as int
-            splitted[2] = patch + 1
+            int patch = versionSplitted[2] as int
+            versionSplitted[2] = patch + 1
             break
-        // case 'minor':
-        //     splitted[1] = splitted[1] as int + 1
-        //     break
-        // case 'major':
-        //     splitted[0] = splitted[0] as int + 1
-        //     break
+        case 'minor':
+            int minor = versionSplitted[1] as int
+            versionSplitted[1] = minor + 1
+            break
+        case 'major':
+            int major = versionSplitted[0] as int
+            versionSplitted[0] = major + 1
+            break
         default:
             break
     }
 
-    return splitted.join('.')
+    newVersion = versionSplitted.join('.')
+
+    return newVersion
 
 }
