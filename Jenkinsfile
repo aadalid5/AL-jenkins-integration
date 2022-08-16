@@ -31,6 +31,7 @@ def getNextVersion(){
     newVersion = ""
 
     def splitted = currentVersion.split('.')
-    echo splitted
-    
+    assert splitted[0] = 1
+    assert splitted[1] = 0
+    assert splitted[2] = 11
 }
