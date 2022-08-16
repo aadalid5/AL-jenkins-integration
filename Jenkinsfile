@@ -13,7 +13,7 @@ pipeline {
                 // 2 if deploy succeed, increment tag
                 script{
                     echo "DEPLOY WORKS"
-                    echo getNextVersion()
+                    //echo getNextVersion()
                 }
 
                 echo getNextVersion()
@@ -28,6 +28,9 @@ pipeline {
 def getNextVersion(){
     env_releaseType = 'patch' // 'minor' 'major'
     currentVersion = sh(script: "npx project-version", returnStdout: true)
-    newVersion = "0.1.2"
-    return currentVersion
+    newVersion = ""
+
+    splitted = currentVersion.split('.')
+
+    return splitted[0]
 }
