@@ -31,6 +31,6 @@ def getNextVersion(){
     newVersion = ""
 
     def splitted = currentVersion.split('.')
-    sh 'echo ${splitted}'
+    echo splitted
     
 }
