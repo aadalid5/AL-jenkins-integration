@@ -10,33 +10,18 @@ pipeline {
     stages {
         stage('deploy') {
             steps {
-
-                // 1 deploy, with current tag (or current tag + 1 ?)
-                sshagent(["github-key-a-id"]) {
-                    script{                         
-                        sh 'git fetch'
-                        
-                        currentVersion = sh(script: 'git describe --tags', returnStdout: true)
-                        echo "1 current version is '${currentVersion}'" 
-
-                        echo "DEPLOY"
-                        // error("deploy failed") //
-                    }
-                }
-
                 // 2 if deploy succeed, increment tag
                 script{
                     echo "DEPLOY WORKS"
-                    FOO = sh(script: "npm version patch --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
                 }
                 
                 // 3 push tags to remote
-                sshagent(["github-key-a-id"]){
-                    script {
-                        sh 'git remote set-url origin  git@github.com:aadalid5/jenkins-integration.git'
-                        sh 'git push origin HEAD:main && git push --tags'
-                    }
-                }
+                // sshagent(["github-key-a-id"]){
+                //     script {
+                //         sh 'git remote set-url origin  git@github.com:aadalid5/jenkins-integration.git'
+                //         sh 'git push origin HEAD:main && git push --tags'
+                //     }
+                // }
 
             }
         }
