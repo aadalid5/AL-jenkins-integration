@@ -30,21 +30,21 @@ def getNextVersion(){
     currentVersion = '1.0.11'
     newVersion = ""
 
-    def a = currentVersion.tokenize('.')[0]
-    // switch(env_releaseType) {
-    //     case 'patch':
-    //         splitted[2] = splitted[2] + 1
-    //         break
-    //     case 'minor':
-    //         splitted[1] = splitted[1] + 1
-    //         break
-    //     case 'major':
-    //         splitted[0] = splitted[0] + 1
-    //         break
-    //     default:
-    //         break
-    // }
+    def splitted = currentVersion.tokenize('.')
+    switch(env_releaseType) {
+        case 'patch':
+            splitted[2] = splitted[2] + 1
+            break
+        case 'minor':
+            splitted[1] = splitted[1] + 1
+            break
+        case 'major':
+            splitted[0] = splitted[0] + 1
+            break
+        default:
+            break
+    }
 
-    return a
+    return splitted.join('.')
 
 }
