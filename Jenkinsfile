@@ -33,13 +33,13 @@ def getNextVersion(){
     def splitted = currentVersion.tokenize('.')
     switch(env_releaseType) {
         case 'patch':
-            splitted[2] = splitted[2] + 1
+            splitted[2] = Integer splitted[2] + 1
             break
         case 'minor':
-            splitted[1] = splitted[1] + 1
+            splitted[1] = Integer splitted[1] + 1
             break
         case 'major':
-            splitted[0] = splitted[0] + 1
+            splitted[0] = Integer splitted[0] + 1
             break
         default:
             break
