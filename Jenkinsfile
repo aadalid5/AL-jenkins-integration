@@ -30,7 +30,7 @@ def getNextVersion(){
     currentVersion = sh(script: "npx project-version", returnStdout: true)
     newVersion = ""
 
-    splitted = currentVersion.split('.')
+    def splitted = currentVersion.split('.')
     sh 'echo ${splitted}'
     
 }
