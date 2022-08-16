@@ -30,7 +30,7 @@ def getNextVersion(){
     currentVersion = '1.0.11'
     newVersion = ""
 
-    def a = currentVersion.split('.')[0]
+    def a = currentVersion.tokenize('.')[0]
     // switch(env_releaseType) {
     //     case 'patch':
     //         splitted[2] = splitted[2] + 1
