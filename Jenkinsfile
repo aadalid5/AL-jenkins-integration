@@ -31,20 +31,20 @@ def getNextVersion(){
     newVersion = ""
 
     def splitted = currentVersion.split('.')
-    switch(env_releaseType) {
-        case 'patch':
-            splitted[2] = splitted[2] + 1
-            break
-        case 'minor':
-            splitted[1] = splitted[1] + 1
-            break
-        case 'major':
-            splitted[0] = splitted[0] + 1
-            break
-        default:
-            break
-    }
+    // switch(env_releaseType) {
+    //     case 'patch':
+    //         splitted[2] = splitted[2] + 1
+    //         break
+    //     case 'minor':
+    //         splitted[1] = splitted[1] + 1
+    //         break
+    //     case 'major':
+    //         splitted[0] = splitted[0] + 1
+    //         break
+    //     default:
+    //         break
+    // }
 
-    return splitted.join('.')
+    return splitted
 
 }
