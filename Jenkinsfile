@@ -16,7 +16,7 @@ pipeline {
                     //echo getNextVersion()
                 }
 
-                echo getNextVersion()
+                //echo getNextVersion()
 
 
             }
@@ -31,6 +31,6 @@ def getNextVersion(){
     newVersion = ""
 
     splitted = currentVersion.split('.')
-
-    return splitted[0]
+    sh 'echo ${splitted}'
+    
 }
