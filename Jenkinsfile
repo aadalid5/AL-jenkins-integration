@@ -16,7 +16,7 @@ pipeline {
                     //echo getNextVersion()
                 }
 
-                //echo getNextVersion()
+                echo getNextVersion()
 
 
             }
@@ -31,7 +31,20 @@ def getNextVersion(){
     newVersion = ""
 
     def splitted = currentVersion.split('.')
-    assert splitted[0] == 1
-    assert splitted[1] == 0
-    assert splitted[2] == 11
+    switch(env_releaseType) {
+        case 'patch':
+            splitted[2] = splitted[2] + 1
+            break
+        case 'minor':
+            splitted[1] = splitted[1] + 1
+            break
+        case 'major':
+            splitted[0] = splitted[0] + 1
+            break
+        default:
+            break
+    }
+
+    return splitted.join('.')
+
 }
