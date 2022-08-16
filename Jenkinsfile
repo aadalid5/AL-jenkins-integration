@@ -12,11 +12,12 @@ pipeline {
             steps {
                 // 2 if deploy succeed, increment tag
                 script{
-                    echo "DEPLOY WORKS"
-                    //echo calculateNextVersion()
+                    
+                    versionToDeploy = calculateNextVersion()
+                    echo versionToDeploy
                 }
 
-                echo calculateNextVersion()
+                
 
 
             }
