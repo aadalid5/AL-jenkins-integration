@@ -13,7 +13,10 @@ pipeline {
                 // 2 if deploy succeed, increment tag
                 script{
                     echo "DEPLOY WORKS"
+                    echo getNextVersion()
                 }
+
+                echo getNextVersion()
                 
                 // 3 push tags to remote
                 // sshagent(["github-key-a-id"]){
@@ -34,4 +37,11 @@ pipeline {
         }
         
     }
+}
+
+def getNextVersion(){
+    // env.releaseType
+    // npx currentVersion
+    newVersion = "0.1.2"
+    return newVersion
 }
