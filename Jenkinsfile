@@ -23,7 +23,7 @@ pipeline {
 }
 
 def calculateNextVersion(){
-    env_releaseType = 'patch' // 'minor' 'major'
+    env_releaseType = 'minor' // 'minor' 'major'
     currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
 
     def splitVersion = currentVersion.tokenize('.')
