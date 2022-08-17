@@ -13,15 +13,9 @@ pipeline {
                 // 1 calculate next app  but not bumb version
                 script{
                     versionToDeploy = calculateNextVersion()
-                    fullArtifactName = // has the correct version 
+                    echo versionToDeploy
                 }
 
-                // 2 deploy using withAWS() stuff and fullArtifactName
-
-                // 3 if deploy goes ok, bumb the version
-                script {
-                    newVersion = sh(script: "npm version ${env.releaseType} --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
-                }
             }
         }
 
