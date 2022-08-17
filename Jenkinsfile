@@ -10,17 +10,23 @@ pipeline {
     stages {
         stage('deploy') {
             steps {
-                // 2 if deploy succeed, increment tag
+                // 1 calculate next app  but not bumb version
                 script{
-                    
                     versionToDeploy = calculateNextVersion()
-                    echo versionToDeploy
+                    fullArtifactName = // has the correct version 
                 }
 
-                
+                // 2 deploy using withAWS() stuff and fullArtifactName
 
-
+                // 3 if deploy goes ok, bumb the version
+                script {
+                    newVersion = sh(script: "npm version ${env.releaseType} --commit-hooks=false -m 'bump version to %s'", returnStdout: true)
+                }
             }
+        }
+
+        stage('post-release') {
+            
         }
 
     }
@@ -28,28 +34,28 @@ pipeline {
 
 def calculateNextVersion(){
     env_releaseType = 'minor' // 'minor' 'major'
-    currentVersion = sh(script: "npx project-version", returnStdout: true)
+    currentVersion = sh(script: `npm pkg get version | sed 's/"//g' `, returnStdout: true)
 
-    def versionSplitted = currentVersion.tokenize('.')
+    def splitVersion = currentVersion.tokenize('.')
 
     switch(env_releaseType) {
         case 'patch':
-            int patch = versionSplitted[2] as int
-            versionSplitted[2] = patch + 1
+            int patch = splitVersion[2] as int
+            splitVersion[2] = patch + 1
             break
         case 'minor':
-            int minor = versionSplitted[1] as int
-            versionSplitted[1] = minor + 1
+            int minor = splitVersion[1] as int
+            splitVersion[1] = minor + 1
             break
         case 'major':
-            int major = versionSplitted[0] as int
-            versionSplitted[0] = major + 1
+            int major = splitVersion[0] as int
+            splitVersion[0] = major + 1
             break
         default:
             break
     }
 
-    newVersion = 'v' + versionSplitted.join('.')
+    newVersion = 'v' + splitVersion.join('.')
 
     return newVersion
 
