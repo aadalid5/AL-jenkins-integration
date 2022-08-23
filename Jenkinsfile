@@ -40,14 +40,13 @@ def calculateNextVersion(){
             splitVersion[1] = minor + 1
             break
         case 'major':
-            int major = splitVersion[0] as int
             splitVersion[0] = major + 1
             break
         default:
             break
     }
 
-    newVersion = splitVersion.join('.')
+    newVersion = splitVersion.join('\.')
 
     return newVersion
 
@@ -56,7 +55,7 @@ def calculateNextVersion(){
 def populateBuildUploadDocker() {
     echo "Building Docker image workspace"
     sh "cp Dockerrun.aws.skel.json Dockerrun.aws.json"
-    sh "sed 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
+    sh "sed -e 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
 
     echo "Building Docker image"
 }
