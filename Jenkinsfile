@@ -46,7 +46,7 @@ def calculateNextVersion(){
             break
     }
 
-    newVersion = splitVersion.join(".")
+    newVersion = splitVersion.join(".") + "\n"
 
     return newVersion
 
@@ -55,9 +55,6 @@ def calculateNextVersion(){
 def populateBuildUploadDocker() {
     echo "Building Docker image workspace"
     sh "cp Dockerrun.aws.skel.json Dockerrun.aws.json"
-    script {
-        sh "echo ${version}"
-    }
     sh "sed -e 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
 
     echo "Building Docker image"
