@@ -48,7 +48,7 @@ def calculateNextVersion(){
 
     newVersion = splitVersion.join(".") + "\n"
 
-    return newVersion
+    return newVersion.trim()
 
 }
 
