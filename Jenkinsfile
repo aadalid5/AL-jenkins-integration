@@ -46,7 +46,7 @@ def calculateNextVersion(){
             break
     }
 
-    newVersion = splitVersion.join('\.')
+    newVersion = splitVersion.join("\.")
 
     return newVersion
 
