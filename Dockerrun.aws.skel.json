@@ -1,0 +1,10 @@
+{
+	"AWSEBDockerrunVersion": "1",
+	"Image": {
+		"Name": "964020329682.dkr.ecr.us-east-1.amazonaws.com/hbrg/frontend:__VERSION__",
+		"Update": "false"
+	},
+	"Ports": [
+		{ "ContainerPort" : 3000 }
+	]
+}

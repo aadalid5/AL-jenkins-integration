@@ -5,6 +5,7 @@ pipeline {
     
     environment {
         FOO = "initial FOO value"
+        version=''
     }
 
     stages {
@@ -12,9 +13,10 @@ pipeline {
             steps {
                 // 1 calculate next app  but not bumb version
                 script{
-                    versionToDeploy = calculateNextVersion()
-                    echo versionToDeploy
+                    version = calculateNextVersion()
+                    echo version
                 }
+                populateBuildUploadDocker()
 
             }
         }
@@ -45,8 +47,16 @@ def calculateNextVersion(){
             break
     }
 
-    newVersion = 'v' + splitVersion.join('.')
+    newVersion = splitVersion.join('.')
 
     return newVersion
 
+}
+
+def populateBuildUploadDocker() {
+    echo "Building Docker image workspace"
+    sh "cp Dockerrun.aws.skel.json Dockerrun.aws.json"
+    sh "sed -e s/__VERSION__/${version}/g -i.bak Dockerrun.aws.json"
+
+    echo "Building Docker image"
 }
