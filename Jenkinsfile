@@ -25,7 +25,7 @@ pipeline {
 }
 
 def calculateNextVersion(){
-    env_releaseType = 'minor' // 'minor' 'major'
+    env_releaseType = 'patch' // 'minor' 'major'
     currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
 
     def splitVersion = currentVersion.tokenize('.')
@@ -56,7 +56,7 @@ def calculateNextVersion(){
 def populateBuildUploadDocker() {
     echo "Building Docker image workspace"
     sh "cp Dockerrun.aws.skel.json Dockerrun.aws.json"
-    sh "sed -e s/__VERSION__/${version}/g -i.bak Dockerrun.aws.json"
+    sh "sed -e 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
 
     echo "Building Docker image"
 }
