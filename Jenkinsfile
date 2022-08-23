@@ -56,7 +56,7 @@ def calculateNextVersion(){
 def populateBuildUploadDocker() {
     echo "Building Docker image workspace"
     sh "cp Dockerrun.aws.skel.json Dockerrun.aws.json"
-    sh "sed -e 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
+    sh "sed 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
 
     echo "Building Docker image"
 }
