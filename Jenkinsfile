@@ -16,8 +16,6 @@ pipeline {
                     version = calculateNextVersion()
                     echo version
                 }
-                populateBuildUploadDocker()
-
             }
         }
 
@@ -28,34 +26,12 @@ def calculateNextVersion(){
     env_releaseType = 'patch' // 'minor' 'major'
     currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
 
-    def splitVersion = currentVersion.tokenize('.')
-
-    switch(env_releaseType) {
-        case 'patch':
-            int patch = splitVersion[2] as int
-            splitVersion[2] = patch + 1
-            break
-        case 'minor':
-            int minor = splitVersion[1] as int
-            splitVersion[1] = minor + 1
-            break
-        case 'major':
-            splitVersion[0] = major + 1
-            break
-        default:
-            break
+    if(env_releaseType != "none"){
+        newVersion = sh(script: "npx semver -i ${env_releaseType} ${currentVersion}", returnStdout:true)
+        return newVersion
+    } else {
+        return currentVersion
     }
 
-    newVersion = splitVersion.join(".") + "\n"
 
-    return newVersion.trim()
-
-}
-
-def populateBuildUploadDocker() {
-    echo "Building Docker image workspace"
-    sh "cp Dockerrun.aws.skel.json Dockerrun.aws.json"
-    sh "sed -e 's/__VERSION__/${version}/g' -i.bak Dockerrun.aws.json"
-
-    echo "Building Docker image"
 }
