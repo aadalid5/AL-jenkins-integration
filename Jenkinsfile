@@ -1,7 +1,7 @@
 pipeline {
     agent any
     
-    tools { nodejs "18.8.0" }
+    //tools { nodejs "18.8.0" }
     
     environment {
         FOO = "initial FOO value"
@@ -17,29 +17,27 @@ pipeline {
             }
         }
 
-        stage('deploy') {
-            steps {
-                // 1 calculate next app  but not bumb version
-                script{
-                    version = calculateNextVersion()
-                    echo version
-                }
-            }
-        }
+        // stage('deploy') {
+        //     steps {
+        //         // 1 calculate next app  but not bumb version
+        //         script{
+        //             version = calculateNextVersion()
+        //             echo version
+        //         }
+        //     }
+        // }
 
     }
 }
 
-def calculateNextVersion(){
-    env_releaseType = 'patch' // 'minor' 'major'
-    currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
+// def calculateNextVersion(){
+//     env_releaseType = 'patch' // 'minor' 'major'
+//     currentVersion = sh(script: "npm pkg get version | sed 's/\"//g'" , returnStdout: true)
 
-    if(env_releaseType != "none"){
-        newVersion = sh(script: "npx semver -i ${env_releaseType} ${currentVersion}", returnStdout:true)
-        return newVersion
-    } else {
-        return currentVersion
-    }
-
-
-}
+//     if(env_releaseType != "none"){
+//         newVersion = sh(script: "npx semver -i ${env_releaseType} ${currentVersion}", returnStdout:true)
+//         return newVersion
+//     } else {
+//         return currentVersion
+//     }
+// }
