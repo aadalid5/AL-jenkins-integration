@@ -9,6 +9,14 @@ pipeline {
     }
 
     stages {
+        stage ('write to file') {
+            steps {
+                sh "cat npmrc.txt"
+                sh "echo 'abcd' >> npmrc.txt"
+                sh "cat npmrc.txt"
+            }
+        }
+
         stage('deploy') {
             steps {
                 // 1 calculate next app  but not bumb version
