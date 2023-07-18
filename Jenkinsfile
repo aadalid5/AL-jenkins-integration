@@ -14,5 +14,16 @@ pipeline {
                 sh "node -v"
             }
         }
+
+        stage('build remotely') {
+            steps {
+                script {
+                    build job: "a11y-test-triggered", wait: true,
+                    parameters: [
+                        string(name: 'tags', value: 'main')
+                    ]
+                }
+            }
+        }
     }
 }
