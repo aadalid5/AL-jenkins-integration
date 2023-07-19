@@ -12,7 +12,7 @@ pipeline {
         stage('build remotely') {
             steps {
                 script {
-                    build job: "a11y-test-triggered", wait: true,
+                    build job: "a11y-test-triggered", wait: true
                 }
             }
         }
