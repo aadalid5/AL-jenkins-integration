@@ -3,8 +3,10 @@ pipeline {
     stages {
         stage('main build') {
             agent {
-                docker {
-                    image "node:16.20.1-buster"
+                dockerfile {
+                    filename 'jenkins/Dockerfile.main'
+                    dir 'build'
+                    label 'node16'
                 }
             }
 
