@@ -1,4 +1,4 @@
-FROM node:18.16.0-alpine
+FROM node:18.16.0-buster
 VOLUME /apps/jenkins
 USER root
 RUN apt-get update && apt-get install -y lsb-release
