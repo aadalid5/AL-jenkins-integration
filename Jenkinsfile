@@ -1,12 +1,25 @@
 pipeline {
-    agent {
-        dockerfile true
-    }
+    agent none
     stages {
-        stage('Test node inside docker') {
-            steps {
-                sh 'node --version'
+        stage('main build') {
+            agent {
+                docker {
+                    image "node:16.20.1-busterl"
+                }
             }
+
+            stage("node version") {
+                steps {
+                    sh 'node --version'
+                }
+            }
+            
+            stage("second stage") {
+                steps {
+                    echo "second stage"
+                }
+            }
+            
         }
 
         stage("a11y Tests") {
