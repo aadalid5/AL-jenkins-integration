@@ -5,8 +5,8 @@ pipeline {
             agent {
                 dockerfile {
                     filename 'jenkins/Dockerfile.main'
-                    dir 'my-defined-label'
-                    label 'node16'
+                    dir 'build'
+                    label 'my-defined-label'
                 }
             }
 
