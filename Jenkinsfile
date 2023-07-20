@@ -8,15 +8,17 @@ pipeline {
                 }
             }
 
-            stage("node version") {
-                steps {
-                    sh 'node --version'
+            steps {
+                stage("node version") {
+                    steps {
+                        sh 'node --version'
+                    }
                 }
-            }
-            
-            stage("second stage") {
-                steps {
-                    echo "second stage"
+                
+                stage("second stage") {
+                    steps {
+                        echo "second stage"
+                    }
                 }
             }
             
