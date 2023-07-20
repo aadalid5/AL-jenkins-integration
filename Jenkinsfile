@@ -6,7 +6,6 @@ pipeline {
                 dockerfile {
                     filename 'Dockerfile.main'
                     dir 'jenkins'
-                    label 'my-defined-label'
                 }
             }
 
