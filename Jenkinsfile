@@ -1,12 +1,12 @@
 pipeline {
-    agent any
+    agent none
     stages {
         stage('main build') {
             agent {
                 dockerfile {
                     filename 'Dockerfile.main'
                     dir 'jenkins'
-                    label 'node abc'
+                    label 'my-defined-label'
                 }
             }
 
