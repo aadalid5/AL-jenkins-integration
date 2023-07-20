@@ -4,7 +4,7 @@ pipeline {
         stage('main build') {
             agent {
                 docker {
-                    image "node:16.20.1-busterl"
+                    image "node:16.20.1-buster"
                 }
             }
 
