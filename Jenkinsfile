@@ -4,8 +4,8 @@ pipeline {
         stage('main build') {
             agent {
                 dockerfile {
-                    filename 'build/jenkins/Dockerfile.main'
-                    dir 'build'
+                    filename 'Dockerfile.main'
+                    dir 'jenkins'
                     label 'my-defined-label'
                 }
             }
