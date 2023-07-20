@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'node:18.16.0-alpine' }
+        dockerfile true
     }
     stages {
         stage('Test node inside docker') {
