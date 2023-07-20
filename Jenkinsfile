@@ -9,7 +9,21 @@ pipeline {
             }
         }
 
-
+        stage("a11y Tests") {
+            agent {
+                docker {
+                    image "mcr.microsoft.com/playwright:v1.30.0-focal"
+                    args "-e PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1"
+                    reuseNode true
+                }
+            }
+            environment {
+                HOME = '.'
+            }
+            steps {
+                sh "node -v"
+            }
+        }
     }
 }
 
