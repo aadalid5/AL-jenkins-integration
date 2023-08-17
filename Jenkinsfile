@@ -13,6 +13,7 @@ pipeline {
                 stage("node version") {
                     steps {
                         sh 'node --version'
+                        sh 'ls'
                     }
                 }
                 
@@ -38,6 +39,8 @@ pipeline {
             }
             steps {
                 sh "node -v"
+                echo "a11y stage"
+                sh "ls"
             }
         }
     }

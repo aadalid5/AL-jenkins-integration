@@ -1,2 +1,1 @@
-FROM node:16.20.1-buster
-RUN apt update
+FROM node:alpine

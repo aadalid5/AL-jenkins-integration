@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/aadalid5/jenkins-integration/issues"
   },
-  "homepage": "https://github.com/aadalid5/jenkins-integration#readme"
+  "homepage": "https://github.com/aadalid5/jenkins-integration#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
