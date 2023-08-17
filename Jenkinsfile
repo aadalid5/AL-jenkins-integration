@@ -35,6 +35,7 @@ pipeline {
                 sh "node -v"
                 echo "a11y stage"
                 sh "ls"
+                sh " node index.js"
             }
         }
     }
