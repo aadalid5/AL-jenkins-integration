@@ -13,13 +13,8 @@ pipeline {
                 stage("node version") {
                     steps {
                         sh 'node --version'
+                        sh "npm ci"
                         sh 'ls'
-                    }
-                }
-                
-                stage("second stage") {
-                    steps {
-                        echo "second stage"
                     }
                 }
             }
@@ -29,8 +24,7 @@ pipeline {
         stage("a11y Tests") {
             agent {
                 docker {
-                    image "mcr.microsoft.com/playwright:v1.30.0-focal"
-                    args "-e PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1"
+                    image "nodeL:16-alpine3.17"
                     reuseNode true
                 }
             }
