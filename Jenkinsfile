@@ -1,24 +1,22 @@
 pipeline {
-    agent none
-    stages {
-        stage('main build') {
-            agent {
-                dockerfile {
-                    filename 'Dockerfile.main'
-                    dir 'jenkins'
-                }
-            }
+    agent {
+        dockerfile {
+            filename 'Dockerfile.main'
+            dir 'jenkins'
+        }
+    }
 
-            stages {
-                stage("node version") {
-                    steps {
-                        sh 'node --version'
-                        sh "npm ci"
-                        sh 'ls'
-                    }
-                }
+    environment {
+        HOME = "." // As we are using docker agents, we need to override HOME env var to allow to create cache directory (~/.npm).
+    }
+
+    stages {
+        stage("node version") {
+            steps {
+                sh 'node --version'
+                sh "npm ci"
+                sh 'ls'
             }
-            
         }
     }
 }
