@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    tools { nodejs "node" }
+
+    environment{
+        dirHost = getWorkDir() 
+        // dirContainer = getWorkDir("container") 
+    }
+
+    stages {
+        stage("npm install"){
+            steps {
+                sh "node -v"
+                sh "npm ci"
+                sh "ls"
+                sh "pwd"
+            }
+        }Jenkins
+
+        stage('docker agent'){
+            agent {
+                docker { 
+                    image 'node:16.13.1-alpine' 
+                    //args '-v /var/jenkins_home/workspace/docker-agent/node_modules:/var/jenkins_home/workspace/docker-agent@2/node_modules'
+                    args "-v ${env.dirHost}/node_modules:~/node_modules"
+                }
+            }
+            steps{
+                sh "node -v"
+                sh "ls"
+                sh "pwd"
+                sh "npm start"
+            }
+        }
+    }
+}
+
+def getWorkDir(){
+    def workDir = sh(script: "pwd", returnStdout: true).trim()
+    // switch(target) {
+    //     case "host":
+    //         return "${workDir}/node_modules"
+    //         break
+    //     case "container":
+    //         return "${workDir}@2/node_modules"
+    //         break
+    //     default:
+    //         return ""
+    //         break
+    // }
+    return workDir
+}
